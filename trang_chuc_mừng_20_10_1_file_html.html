@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chúc mừng 20/10 🎉</title>
+  <meta name="description" content="Trang chúc mừng 20/10 xinh xắn – cá nhân hoá tên và lời chúc, kèm hiệu ứng pháo giấy." />
+  <!-- Open Graph for link previews -->
+  <meta property="og:title" content="Chúc mừng 20/10 🎉" />
+  <meta property="og:description" content="Nhận một lời chúc 20/10 thật đáng yêu dành riêng cho bạn!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?> <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'> <rect width='1200' height='630' fill='%23ff7ac8'/> <text x='600' y='310' text-anchor='middle' font-size='72' font-family='Arial' fill='white'>Chúc mừng 20/10</text> <text x='600' y='380' text-anchor='middle' font-size='36' font-family='Arial' fill='white'>Nhận một lời chúc dành riêng cho bạn!</text></svg>" />
+  <meta name="theme-color" content="#ff7ac8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#ff7ac8; /* có thể đổi bằng tham số ?color= */
+      --bg1:#0f0c29;
+      --bg2:#302b63;
+      --bg3:#24243e;
+      --card: rgba(255,255,255,.1);
+      --text: #fff;
+      --muted: #cbd5e1;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Outfit', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 10% 10%, var(--bg2), var(--bg3)),
+                  linear-gradient(120deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{
+      min-height:100dvh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+    }
+    .card{
+      width:min(720px, 96vw);
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+      position:relative;
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-block;
+      padding:6px 12px;
+      border:1px dashed rgba(255,255,255,.4);
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    h1{
+      margin:4px 0 8px;
+      font-size:clamp(28px, 6vw, 46px);
+      line-height:1.1;
+    }
+    .accent{ color:var(--accent); }
+    p.lead{
+      margin:0 0 14px;
+      font-size:clamp(16px, 3.5vw, 20px);
+      color:var(--muted);
+    }
+    .from{
+      margin-top:18px;
+      font-weight:500;
+      color:#e2e8f0;
+    }
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      border-radius:14px;
+      padding:12px 16px;
+      background:var(--accent);
+      color:#111;
+      font-weight:700;
+      transition:transform .06s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow:0 10px 30px rgba(255, 122, 200, .35);
+    }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn.secondary{
+      background:transparent;
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.35);
+      box-shadow:none;
+    }
+    .tiny{ font-size:12px; color:var(--muted); margin-top:8px; }
+    .footer{ text-align:center; margin-top:20px; font-size:12px; color:var(--muted); }
+
+    /* Floating petals */
+    .petal{
+      position:fixed; top:-40px; width:12px; height:18px; border-radius:60% 60% 60% 60% / 70% 70% 30% 30%;
+      background:linear-gradient(180deg, #fff0 0, #fff3 30%, #fff7 100%), var(--accent);
+      opacity:.75; filter:blur(.2px);
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+    @keyframes fall{
+      to{ transform:translateY(110vh) rotate(360deg); opacity:.9; }
+    }
+
+    /* Confetti Canvas */
+    canvas#confetti{ position:fixed; inset:0; pointer-events:none; z-index:2; }
+
+    /* Edit form */
+    details{
+      margin-top:18px; border-top:1px dashed rgba(255,255,255,.25); padding-top:16px;
+    }
+    details summary{ cursor:pointer; color:var(--muted); margin-bottom:12px; }
+    .grid{ display:grid; gap:10px; grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .grid .full{ grid-column:1/-1; }
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.08); color:var(--text); font-family:inherit;
+    }
+    textarea{ min-height:90px; resize:vertical; }
+    label{ font-size:12px; color:var(--muted); display:block; margin-bottom:6px; }
+
+    /* Sparkle ring */
+    .ring{
+      position:absolute; inset:-120px; border-radius:50%; filter:blur(40px);
+      background: conic-gradient(from 0deg, transparent 0 330deg, var(--accent) 330deg 360deg);
+      animation: spin 9s linear infinite;
+      opacity:.12; z-index:0;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <div class="card" role="main" aria-live="polite">
+      <div class="ring" aria-hidden="true"></div>
+      <span class="badge">20/10 • Vietnamese Women's Day</span>
+      <h1><span class="accent">Chúc mừng 20/10</span> <span id="who">bạn yêu</span>! 🌸</h1>
+      <p class="lead" id="msg">Chúc bạn luôn xinh đẹp, rạng rỡ và hạnh phúc. Mong mọi điều tốt đẹp sẽ đến với bạn hôm nay và mỗi ngày sau đó! ✨</p>
+      <p class="from" id="from"></p>
+      <div class="actions">
+        <button class="btn" id="btnCelebrate">Bắn pháo giấy 🎉</button>
+        <button class="btn secondary" id="btnShare">Sao chép link chúc mừng 🔗</button>
+      </div>
+      <p class="tiny">Mẹo: bạn có thể cá nhân hoá bằng cách thêm tham số trên URL, ví dụ: <code>?name=Lan&from=Minh&msg=Bạn%20luôn%20xinh%20đẹp!&color=%23ff9a9e</code></p>
+
+      <details>
+        <summary>✏️ Tạo lời chúc mới ngay tại đây</summary>
+        <form id="editForm">
+          <div class="grid">
+            <div>
+              <label for="name">Tên người nhận (name)</label>
+              <input id="name" name="name" placeholder="VD: Lan" />
+            </div>
+            <div>
+              <label for="fromInput">Tên người gửi (from)</label>
+              <input id="fromInput" name="from" placeholder="VD: Minh" />
+            </div>
+            <div class="full">
+              <label for="message">Lời chúc (msg)</label>
+              <textarea id="message" name="msg" placeholder="Nhập lời chúc của bạn..."></textarea>
+            </div>
+            <div>
+              <label for="color">Màu chủ đạo (color)</label>
+              <input id="color" name="color" type="color" value="#ff7ac8" />
+            </div>
+            <div>
+              <label for="preview">Xem trước</label>
+              <button class="btn" id="preview" type="button">Cập nhật</button>
+            </div>
+            <div class="full">
+              <button class="btn secondary" id="genLink" type="button">Tạo & sao chép link</button>
+            </div>
+          </div>
+        </form>
+      </details>
+
+      <div class="footer">Làm với ❤️ để gửi tặng những người phụ nữ tuyệt vời quanh ta.</div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Utilities =====
+    const $ = (sel) => document.querySelector(sel);
+    const params = new URLSearchParams(location.search);
+
+    function setAccent(color){
+      if(!color) return;
+      document.documentElement.style.setProperty('--accent', color);
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if(metaTheme) metaTheme.setAttribute('content', color);
+    }
+
+    function decodePlus(s){ return (s||'').replace(/\+/g, ' '); }
+
+    // Apply personalization from URL
+    const nameParam = decodeURIComponent(decodePlus(params.get('name')||''));
+    const msgParam = decodeURIComponent(decodePlus(params.get('msg')||''));
+    const fromParam = decodeURIComponent(decodePlus(params.get('from')||''));
+    const colorParam = params.get('color');
+
+    if(nameParam) $('#who').textContent = nameParam;
+    if(msgParam) $('#msg').textContent = msgParam;
+    if(fromParam) $('#from').textContent = `— Từ ${fromParam} với nhiều yêu thương 💖`;
+    if(colorParam) setAccent(colorParam);
+
+    // Bind form
+    $('#name').value = nameParam || '';
+    $('#fromInput').value = fromParam || '';
+    $('#message').value = msgParam || '';
+    $('#color').value = colorParam || getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+
+    $('#preview').addEventListener('click', () => {
+      const name = $('#name').value.trim();
+      const message = $('#message').value.trim();
+      const from = $('#fromInput').value.trim();
+      const color = $('#color').value;
+      if(name) $('#who').textContent = name; else $('#who').textContent = 'bạn yêu';
+      if(message) $('#msg').textContent = message; else $('#msg').textContent = 'Chúc bạn luôn xinh đẹp, rạng rỡ và hạnh phúc. Mong mọi điều tốt đẹp sẽ đến với bạn hôm nay và mỗi ngày sau đó! ✨';
+      $('#from').textContent = from ? `— Từ ${from} với nhiều yêu thương 💖` : '';
+      setAccent(color);
+      fire();
+    });
+
+    // Generate sharable link
+    function buildLink(){
+      const q = new URLSearchParams({
+        name: $('#who').textContent,
+        msg: $('#msg').textContent,
+        from: $('#from').textContent.replace(/—\s*Từ\s*|\s*với nhiều yêu thương 💖/g, '').trim(),
+        color: getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
+      });
+      return location.origin + location.pathname + '?' + q.toString();
+    }
+
+    function copy(text){
+      navigator.clipboard?.writeText(text).then(()=>{
+        toast('Đã sao chép link vào clipboard!');
+      }).catch(()=>{
+        prompt('Copy link thủ công nhé:', text);
+      });
+    }
+
+    $('#genLink').addEventListener('click', () => copy(buildLink()));
+    $('#btnShare').addEventListener('click', () => copy(buildLink()));
+
+    // ===== Confetti =====
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H; let pieces = [];
+
+    function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    function random(min, max){ return Math.random()*(max-min)+min; }
+
+    function makePiece(){
+      const angle = random(0, 2*Math.PI);
+      const speed = random(1, 4);
+      const size = random(4, 10);
+      const hue = Math.floor(random(0,360));
+      return { x: random(0, W), y: -10, r: angle, s: speed, z: size, h: hue };
+    }
+
+    function fire(count=200){
+      for(let i=0;i<count;i++){ pieces.push(makePiece()); }
+      // also spawn petals for 2 seconds
+      petals(36);
+    }
+
+    function update(){
+      ctx.clearRect(0,0,W,H);
+      pieces = pieces.filter(p=> p.y < H+20);
+      for(const p of pieces){
+        p.y += p.s;
+        p.x += Math.sin(p.y*0.02);
+        p.r += 0.02;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.r);
+        ctx.fillStyle = `hsl(${p.h} 90% 60%)`;
+        ctx.fillRect(-p.z/2,-p.z/2,p.z,p.z*0.6);
+        ctx.restore();
+      }
+      requestAnimationFrame(update);
+    }
+    update();
+
+    // ===== Petals =====
+    function petals(n=24){
+      for(let i=0;i<n;i++){
+        const el = document.createElement('span');
+        el.className = 'petal';
+        el.style.left = random(-10, 100) + 'vw';
+        el.style.animationDuration = random(6, 12) + 's';
+        el.style.transform = `rotate(${random(-40, 40)}deg)`;
+        el.style.opacity = random(.5, .95);
+        document.body.appendChild(el);
+        setTimeout(()=> el.remove(), 12000);
+      }
+    }
+
+    // Fire once on load
+    fire(180);
+
+    // Buttons
+    $('#btnCelebrate').addEventListener('click', () => fire(240));
+
+    // ===== Tiny toast =====
+    function toast(text){
+      const t = document.createElement('div');
+      t.textContent = text;
+      Object.assign(t.style, {
+        position:'fixed', left:'50%', bottom:'24px', transform:'translateX(-50%)',
+        background:'rgba(0,0,0,.75)', color:'#fff', padding:'10px 14px', borderRadius:'12px',
+        fontSize:'14px', zIndex: 9999, border:'1px solid rgba(255,255,255,.2)'
+      });
+      document.body.appendChild(t);
+      setTimeout(()=>{ t.style.transition='opacity .6s'; t.style.opacity='0'; }, 1400);
+      setTimeout(()=> t.remove(), 2100);
+    }
+
+    // Accessibility: trigger via keyboard (Enter/Space)
+    ['btnCelebrate','btnShare'].forEach(id=>{
+      const el = document.getElementById(id);
+      el.addEventListener('keydown', (e)=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); el.click(); }
+      });
+    });
+  </script>
+</body>
+</html>
